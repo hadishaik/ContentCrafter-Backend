@@ -12,7 +12,7 @@ const port = 5000;
 // Enable CORS for your frontend origin
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://content-crafter-ai-afcb.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
