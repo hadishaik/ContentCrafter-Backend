@@ -8,6 +8,7 @@ const generateContentHandler = require("./routes/generate");
 require("dotenv").config();
 const app = express();
 const port = 5000;
+const os = require('os');
 
 // Enable CORS for your frontend origin
 app.use(
@@ -38,6 +39,19 @@ app.get("/", (req, res) => {
   });
 });
 
+const getLocalIP = () => {
+  const interfaces = os.networkInterfaces();
+  for (const name of Object.keys(interfaces)) {
+    for (const iface of interfaces[name]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return 'localhost';
+};
+
 app.listen(port, () => {
-  console.log(`server started on port http://localhost:${port}`);
+  const host = getLocalIP()
+  console.log(`server started on port http://${host}:${port}`);
 });
